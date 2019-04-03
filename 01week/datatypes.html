@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./datatypesStyles.css">
+        
+    </head>
+    <body>
+        <table>
+            <tr colspan = "3"><th colspan="3"> <h1>Tasks</h1></th></tr>
+            <tr>
+                <th>Task</th>
+                <th>Variables</th>
+                <th>Output</th>
+            </tr>
+            <tr>
+                <td>Display the current date and time</td>
+                <td>var <strong>date</strong> = new Date();</td>
+                <td id = "dateTime"></td>
+            </tr>
+            <tr>
+                <td>Convert a number to a string</td>
+                <td>var <strong>num</strong> = 7;<br>
+                    var <strong>str</strong> = String(num);</td>
+                <td><strong>str</strong> datatype: <span id = "numToStr"></span></td>
+            </tr>
+            <tr>
+                <td>Convert a string to a number</td>
+                <td>var <strong>str</strong> = "7";<br>
+                    var <strong>num</strong> = Number(str);</td>
+                    <td><strong>num</strong> datatype: <span id = "strToNum"></span></td>
+            </tr>
+            <tr>
+                <td>Add two numbers together</td>
+                <td>var <strong>num1</strong> = 10;<br>
+                    var <strong>num2</strong> = 5;</td>
+                <td id = "sumTwoNum"></td>
+            </tr>
+            <tr>
+                <td>Prints "Both are TRUE" when two statements are true</td>
+                <td>var <strong>a</strong> = true;<br>
+                    var <strong>b</strong> = true;</td>
+                <td id = "bothTrue"></td>
+            </tr>
+            <tr>
+                <td>Prints "One of these is TRUE" when only one thing is true</td>
+                <td>var <strong>a</strong> = true;<br>
+                    var <strong>c</strong> = false;</td>
+                <td id = "oneTrue"></td>
+            </tr>
+            <tr>
+                <td>Prints "Neither is TRUE" when both things are not true</td>
+                <td>var <strong>c</strong> = false;<br>
+                    var <strong>d</strong> = false;</td>
+                <td id = "noneTrue"></td>
+            </tr>
+            <tr>
+                <th colspan="3"> <h1>Datatypes</h1></th>
+            </tr>
+            <tr>
+                <th>Variable</th>
+                <th>Datatype</th>
+            </tr>
+            <tr>
+                <td>var <strong>myBool</strong> = true;</td>
+                <td><strong>myBool</strong> dataype:    <span id = "myBool">  </span></td>
+            </tr>
+            <tr>
+                <td>var <strong>myNull</strong> = null;</td>
+                <td><strong>myNull</strong> dataype:    <span id = "myNull">  </span></td>
+            </tr>
+            <tr>
+                <td>var <strong>myUnd</strong>;</td>
+                <td><strong>myUnd</strong> dataype:    <span id = "myUnd">  </span></td>
+            </tr>
+            <tr>
+                <td>var <strong>myNum</strong> = 10;</td>
+                <td><strong>myNum</strong> dataype:    <span id = "myNum">  </span></td>
+            </tr>
+            <tr>
+                <td>var <strong>myNan</strong> = 0/0;</td>
+                <td><strong>myNan</strong> dataype:    <span id = "myNan">  </span></td>
+            </tr>
+            <tr>
+                <td>var <strong>myStr</strong> = "poop";</td>
+                <td><strong>myStr</strong> dataype:    <span id = "myStr">  </span></td>
+            </tr>
+        </table>
+
+        <script type="text/javascript" src="./datatypes.js"></script>
+    </body>
+</html>
