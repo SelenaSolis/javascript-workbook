@@ -16,13 +16,13 @@ function pigLatin(word) {
   word = word.toLowerCase();
 
   //array of vowels
-  var vowelArr = ["a", "e", "i", "o", "u", "y"];
+  const vowelArr = ["a", "e", "i", "o", "u", "y"];
 
   //variable to hold letters of word until vowel
-  var vowel = "b";
+  let vowel = "b";
 
   //variable to count position of vowel
-  var i = 0;
+  let i = 0;
 
   //while loop to look through word until a vowel
     while(!vowelArr.includes(vowel)){
@@ -36,7 +36,7 @@ function pigLatin(word) {
     i = i - 1;
 
     //variable for the letters before the vowel
-    var beg = word.slice(0, i);
+    let beg = word.slice(0, i);
 
     //if word starts with a vowel add "yay"
 
@@ -50,10 +50,6 @@ function pigLatin(word) {
       word = word.slice(i) + beg + 'ay';
     }
     return word;
-  
-
-  //add 'ay' to the end
-
 }
 
 
