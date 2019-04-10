@@ -48,7 +48,7 @@ function pigLatin(word) {
     if (vowelArr.includes(wordCur.charAt(0))){
 
       //removes letters before vowel and concatenates them to the end with "yay"
-      wordCur = wordCur.slice(vowelLoc) + beg + 'yay';
+      wordCur = wordCur + 'yay';
 
       }
 
@@ -78,7 +78,7 @@ function pigLatin(word) {
   }
 
   //returns final sentence
-  return translated;
+  return translated.trimEnd();
   
 }
 
@@ -112,7 +112,7 @@ if (typeof describe === 'function') {
       assert.equal(pigLatin(' RoCkEt'), 'ocketray');
     });
     it('should separate two words and return them together', ()=> {
-      assert.equal(pigLatin('Egg Rocket'), 'eggyay ocketray ');
+      assert.equal(pigLatin('Egg Rocket'), 'eggyay ocketray');
     })
   });
 } else {
