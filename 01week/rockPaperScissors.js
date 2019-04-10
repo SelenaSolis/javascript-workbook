@@ -27,14 +27,14 @@ function rockPaperScissors(hand1, hand2) {
   if (hand1 == "rock" && hand2 == 'scissors' || 
       hand1 == "paper" && hand2 == "rock" || 
       hand1 == "scissors" && hand2 == "paper"){
-        return "1st player wins!";
+        return "Hand one wins!";
   }
 
 
   if (hand2 == "rock" && hand1 == 'scissors' || 
       hand2 == "paper" && hand1 == "rock" || 
       hand2 == "scissors" && hand1 == "paper"){
-        return "2nd player wins!";
+        return "Hand two wins!";
   }
 
   else{
