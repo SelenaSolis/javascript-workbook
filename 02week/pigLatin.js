@@ -17,7 +17,7 @@ function pigLatin(word) {
   const vowelArr = ["a", "e", "i", "o", "u", "y"];
 
   //variable to hold letters of word until vowel
-  let vowel = "b";
+  let vowel = "";
 
 
   //get word count of input
@@ -39,7 +39,7 @@ function pigLatin(word) {
     let wordCur = words[i];
 
     //assigns 'vowel' a value that is not in the 'vowelArr' to reset
-    let vowel = 'b';
+    vowel = 'b';
 
     //sets initial position of letter in word
     let j = 0;
