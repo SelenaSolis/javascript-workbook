@@ -14,6 +14,7 @@ let board = [
 
 let playerTurn = 'X';
 
+
 function printBoard() {
   console.log('   0  1  2');
   console.log('0 ' + board[0].join(' | '));
@@ -40,7 +41,17 @@ function checkForWin() {
 }
 
 function ticTacToe(row, column) {
-  // Your code here
+  board[row][column] = 'x';
+  let compRow = Math.floor(Math.random()*2);
+  let compCol = Math.floor(Math.random()*2);
+  if (board[compRow][compCol] != ' '){
+    while(board[compRow][compCol] != ' '){
+      compRow = Math.floor(Math.random()*2);
+      compCol = Math.floor(Math.random()*2);
+    }
+  }
+  board[compRow][compCol] = 'o'; 
+
 }
 
 function getPrompt() {
