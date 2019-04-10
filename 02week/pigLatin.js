@@ -23,128 +23,63 @@ function pigLatin(word) {
   //get word count of input
   //creates array of words splitting at any spaces
   let words = word.split(' ');
-
   //removes empty strings from 'words' array
   words = words.filter(Boolean);
-
   //counts words in 'words' array
   let wordCount = words.length;
 
+  //define empty string for translated sentence
+  let translated = "";
+  
 
-  //performs action when iput has only one word
-  if (wordCount == 1){
+  //loops through each word in 'words' array
+  for (let i=0; i<wordCount; i++){
 
-    //trims input word
-    word = word.trim();
+    //variable to manipulate each word
+    let wordCur = words[i];
+
+    //assigns 'vowel' a value that is not in the 'vowelArr' to reset
+    let vowel = 'b';
 
     //sets initial position of letter in word
-    let i = 0;
-
-
-    //while loop to check if each letter is in the vowel array
-    while(!vowelArr.includes(vowel)){
-
-      //assign letter at position i to vowel
-      vowel = word.charAt(i);
-
-      //increment position by 1
-      i = i + 1;
-    }
-
-
-    //variable for first instance of a vowel
-    let vowelLoc = i - 1;
-
-    //variable for the letters before the vowel
-    let beg = word.slice(0, vowelLoc);
-
-
+    let j = 0;
 
     //if word starts with a vowel add "yay"
-    if (vowelArr.includes(word.charAt(0))){
+    if (vowelArr.includes(wordCur.charAt(0))){
 
       //removes letters before vowel and concatenates them to the end with "yay"
-      word = word.slice(vowelLoc) + beg + 'yay';
-
-    }
-
-    //if not add "ay"
-    else{
-
-      //removes letters before vowel and concatenates them to the end with "ay"
-      word = word.slice(vowelLoc) + beg + 'ay';
-
-    }
-
-    return word;
-  }
-
-  
-  //performs action when iput has more than one word
-  if(wordCount > 1){
-
-    //define empty string for translated sentence
-    let translated = "";
-    
-
-    //loops through each word in 'words' array
-    for (let i=0; i<words.length; i++){
-
-      //assigns each word to new variable
-      let wordCycle = words[i];
-
-      //assigns 'vowel' a value that is not in the 'vowelArr' to reset
-      let vowel = 'b';
-
-      //sets initial position of letter in word
-      let j = 0;
-
-
-      //while loop to check if each letter is in the vowel array
-      while(!vowelArr.includes(vowel)){
-
-        //assign letter at position i to vowel
-        vowel = wordCycle.charAt(j);
-        //increment position by 1
-        j = j + 1;
+      wordCur = wordCur.slice(vowelLoc) + beg + 'yay';
 
       }
 
+    //if not, add "ay"
+    else{
+      //while loop to check if each letter is in the vowel array
+      while(!vowelArr.includes(vowel)){
 
+        //assign letter at position j to vowel
+        vowel = wordCur.charAt(j);
+        //increment position by 1
+        j = j + 1;
+      }
       //variable for first instance of a vowel
       let vowelLoc = j - 1;
 
       //variable for the letters before the vowel
-      let beg = wordCycle.slice(0, vowelLoc);
-
-
-      //if word starts with a vowel add "yay"
-      if (vowelArr.includes(wordCycle.charAt(0))){
-
-      //removes letters before vowel and concatenates them to the end with "yay"
-      wordCycle = wordCycle.slice(vowelLoc) + beg + 'yay';
-
-      }
-
-      //if not add "ay"
-      else{
+      let beg = wordCur.slice(0, vowelLoc);
 
       //removes letters before vowel and concatenates them to the end with "ay"
-      wordCycle = wordCycle.slice(vowelLoc) + beg + 'ay';
-
-      }
-
-
-      //concatenates each translated word
-      translated = translated + wordCycle + " ";
-    
+      wordCur = wordCur.slice(vowelLoc) + beg + 'ay';
     }
 
-    //returns final sentence
-    return translated;
-    
+    //concatenates each translated word
+    translated = translated + wordCur + " ";
+  
   }
 
+  //returns final sentence
+  return translated;
+  
 }
 
 
