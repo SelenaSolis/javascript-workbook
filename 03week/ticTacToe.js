@@ -13,6 +13,7 @@ let board = [
 ];
 
 let playerTurn = 'X';
+let win = false;
 
 
 function printBoard() {
@@ -25,33 +26,64 @@ function printBoard() {
 }
 
 function horizontalWin() {
-  // Your code here
+  for(let i=0; i<=2; i++){
+    let row = board[i];
+    if(row[0] == row[1] && row[1] == row[2] && row[0] != ' '){
+      win = true;
+      break;
+    }
+  }
 }
 
 function verticalWin() {
-  // Your code here
+  for(let i=0; i<=2; i++){
+    let col = [];
+    for(let j=0; j<=2; j++){
+      let x = board[j][i];
+      col.push(x);
+    }
+    console.log(col);
+    if(col[0] == col[1] && col[1] == col[2] && col[0] != ' '){
+      win = true;
+      break;
+    }
+  }
 }
 
 function diagonalWin() {
   // Your code here
 }
 
-function checkForWin() {
-  // Your code here
+function checkForWin(player) {
+  horizontalWin();
+  verticalWin();
+
+  if (win == true){
+    console.log(player + "'s win!");
+    board = [
+      [' ', ' ', ' '],
+      [' ', ' ', ' '],
+      [' ', ' ', ' ']
+    ];
+    win = false;
+  }  
+    
 }
 
 function ticTacToe(row, column) {
   board[row][column] = 'x';
-  let compRow = Math.floor(Math.random()*2);
-  let compCol = Math.floor(Math.random()*2);
+  checkForWin('x');
+
+  let compRow = Math.floor(Math.random() * Math.floor(3));
+  let compCol = Math.floor(Math.random() * Math.floor(3))
   if (board[compRow][compCol] != ' '){
     while(board[compRow][compCol] != ' '){
-      compRow = Math.floor(Math.random()*2);
-      compCol = Math.floor(Math.random()*2);
+      compRow = Math.floor(Math.random() * Math.floor(3))
+      compCol = Math.floor(Math.random() * Math.floor(3))
     }
   }
   board[compRow][compCol] = 'o'; 
-
+  checkForWin('o');
 }
 
 function getPrompt() {
