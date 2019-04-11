@@ -119,22 +119,29 @@ function ticTacToe(row, column) {
   //if number is not one of the possible choices print 'input out of range'
   if(choices.includes(row) && choices.includes(column)){
 
-    //takes input and prints current marker in correct row and column
-    board[row][column] = playerTurn;
+    if(board[row][column] === ' '){
 
-    //checks for winner after every turn
-    checkForWin(playerTurn);
+      //takes input and prints current marker in correct row and column
+      board[row][column] = playerTurn;
 
-    //alternates players
-    if(playerTurn == 'X'){
-      playerTurn = 'O';
+      //checks for winner after every turn
+      checkForWin(playerTurn);
+
+      //alternates players
+      if(playerTurn == 'X'){
+        playerTurn = 'O';
+      }
+      else{
+        playerTurn = 'X';
+      }
     }
     else{
-      playerTurn = 'X';
+      console.log("That space is occupied");
+      return "That space is occupied";
     }
 
   }
-
+  
   else{
     console.log("Please enter a valid input.");
     return "Please enter a valid input.";
@@ -200,6 +207,10 @@ if (typeof describe === 'function') {
       assert.equal(ticTacToe(1.5,0), "Please enter a valid input.");
       assert.equal(ticTacToe(1,1.5), "Please enter a valid input.");
       assert.equal(ticTacToe(1.5,1.5), "Please enter a valid input.");
+    });
+    it('should detect if a space is occupied', () =>{
+      board = [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]
+      assert.equal(ticTacToe(1,1), "That space is occupied");
     });
   });
 }
