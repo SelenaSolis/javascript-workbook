@@ -42,7 +42,6 @@ function verticalWin() {
       let x = board[j][i];
       col.push(x);
     }
-    console.log(col);
     if(col[0] == col[1] && col[1] == col[2] && col[0] != ' '){
       win = true;
       break;
@@ -51,14 +50,21 @@ function verticalWin() {
 }
 
 function diagonalWin() {
-  // Your code here
+  if(board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ' ){
+    win = true;
+  }
+  else if( board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[2][0] != ' '){
+    win = true;
+  }
 }
 
 function checkForWin(player) {
   horizontalWin();
   verticalWin();
+  diagonalWin();
 
   if (win == true){
+    printBoard();
     console.log(player + "'s win!");
     board = [
       [' ', ' ', ' '],
@@ -74,12 +80,12 @@ function ticTacToe(row, column) {
   board[row][column] = 'x';
   checkForWin('x');
 
-  let compRow = Math.floor(Math.random() * Math.floor(3));
-  let compCol = Math.floor(Math.random() * Math.floor(3))
+  let compRow = Math.floor(Math.random() * 3);
+  let compCol = Math.floor(Math.random() * 3)
   if (board[compRow][compCol] != ' '){
     while(board[compRow][compCol] != ' '){
-      compRow = Math.floor(Math.random() * Math.floor(3))
-      compCol = Math.floor(Math.random() * Math.floor(3))
+      compRow = Math.floor(Math.random() * 3)
+      compCol = Math.floor(Math.random() * 3)
     }
   }
   board[compRow][compCol] = 'o'; 
