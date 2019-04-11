@@ -48,7 +48,7 @@ function verticalWin() {
 
   //for loop to check each column
   for(let i=0; i<=2; i++){
-    
+
     let col = [];
 
     for(let j=0; j<=2; j++){
@@ -108,24 +108,17 @@ function checkForWin(player) {
 
 //function to print markers
 function ticTacToe(row, column) {
-  
+
+  //converts input to number
+  row = Number(row);
+  column = Number(column);
+
   //possible choies array declaration
   let choices = [0, 1, 2];
 
-  //if number is not an integer print 'Please enter an integer'
-  if(!Number.isInteger(row) || !Number.isInteger(column)){
-    console.log("Please enter an integer");
-    return "Please enter an integer";
-  }
-
   //if number is not one of the possible choices print 'input out of range'
-  else if(!choices.includes(row) || !choices.includes(column)){
-    console.log("input out of range");
-    return "input out of range";
-  }
+  if(choices.includes(row) && choices.includes(column)){
 
-  //if input is either 0, 1, or 2 print marker on the board
-  else{
     //takes input and prints current marker in correct row and column
     board[row][column] = playerTurn;
 
@@ -140,24 +133,18 @@ function ticTacToe(row, column) {
       playerTurn = 'X';
     }
 
-    // let compRow = Math.floor(Math.random() * 3);
-    // let compCol = Math.floor(Math.random() * 3)
-    // if (board[compRow][compCol] != ' '){
-    //   while(board[compRow][compCol] != ' '){
-    //     compRow = Math.floor(Math.random() * 3)
-    //     compCol = Math.floor(Math.random() * 3)
-    //   }
-    // }
-    // board[compRow][compCol] = playerTurn; 
-    // checkForWin(playerTurn);
-
   }
 
+  else{
+    console.log("Please enter a valid input.");
+    return "Please enter a valid input.";
+  }
 }
 
   
 
 function getPrompt() {
+
   printBoard();
   console.log("It's Player " + playerTurn + "'s turn.");
   rl.question('row: ', (row) => {
@@ -168,6 +155,7 @@ function getPrompt() {
   });
 
 }
+
 
 
 
@@ -204,14 +192,20 @@ if (typeof describe === 'function') {
       assert.equal(checkForWin(), true);
     });
     it('should detect if input is out of range', () => {
-      assert.equal(ticTacToe(2,3), "input out of range");
+      assert.equal(ticTacToe(2,3), "Please enter a valid input.");
+      assert.equal(ticTacToe(3,2), "Please enter a valid input.");
+      assert.equal(ticTacToe(3,3), "Please enter a valid input.");
     });
     it('should detect if input is not an integer', () =>{
-      assert.equal(ticTacToe(1.5,0), "Please enter an integer");
-    })
+      assert.equal(ticTacToe(1.5,0), "Please enter a valid input.");
+      assert.equal(ticTacToe(1,1.5), "Please enter a valid input.");
+      assert.equal(ticTacToe(1.5,1.5), "Please enter a valid input.");
+    });
   });
-} else {
+}
+else {
 
   getPrompt();
 
 }
+
