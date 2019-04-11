@@ -108,33 +108,52 @@ function checkForWin(player) {
 
 //function to print markers
 function ticTacToe(row, column) {
+  let x = Number.isInteger(row);
+  let y = Number.isInteger(column);
+  let choices = [0, 1, 2];
 
-  //takes input and prints current marker in correct row and column
-  board[row][column] = playerTurn;
 
-  //checks for winner after every turn
-  checkForWin(playerTurn);
-
-  //alternates players
-  if(playerTurn == 'X'){
-    playerTurn = 'O';
+  if(!x || !y){
+    console.log("Please enter an integer");
+    return "Please enter an integer";
   }
+
+  else if(!choices.includes(row) || !choices.includes(column)){
+    console.log("input out of range");
+    return "input out of range";
+  }
+
   else{
-    playerTurn = 'X';
+    //takes input and prints current marker in correct row and column
+    board[row][column] = playerTurn;
+
+    //checks for winner after every turn
+    checkForWin(playerTurn);
+
+    //alternates players
+    if(playerTurn == 'X'){
+      playerTurn = 'O';
+    }
+    else{
+      playerTurn = 'X';
+    }
+
+    // let compRow = Math.floor(Math.random() * 3);
+    // let compCol = Math.floor(Math.random() * 3)
+    // if (board[compRow][compCol] != ' '){
+    //   while(board[compRow][compCol] != ' '){
+    //     compRow = Math.floor(Math.random() * 3)
+    //     compCol = Math.floor(Math.random() * 3)
+    //   }
+    // }
+    // board[compRow][compCol] = playerTurn; 
+    // checkForWin(playerTurn);
+
   }
-  
-  // let compRow = Math.floor(Math.random() * 3);
-  // let compCol = Math.floor(Math.random() * 3)
-  // if (board[compRow][compCol] != ' '){
-  //   while(board[compRow][compCol] != ' '){
-  //     compRow = Math.floor(Math.random() * 3)
-  //     compCol = Math.floor(Math.random() * 3)
-  //   }
-  // }
-  // board[compRow][compCol] = playerTurn; 
-  // checkForWin(playerTurn);
 
 }
+
+  
 
 function getPrompt() {
   printBoard();
@@ -166,9 +185,13 @@ if (typeof describe === 'function') {
     it('should check for vertical wins', () => {
       board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
       assert.equal(verticalWin(), true);
+      board = [ [' ', ' ', 'O'], [' ', ' ', 'O'], [' ', ' ', 'O'] ];
+      assert.equal(verticalWin(), true);
     });
     it('should check for horizontal wins', () => {
       board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
+      assert.equal(horizontalWin(), true);
+      board = [ [' ', ' ', ' '], ['O', 'O', 'O'], [' ', ' ', ' '] ];
       assert.equal(horizontalWin(), true);
     });
     it('should check for diagonal wins', () => {
@@ -178,6 +201,12 @@ if (typeof describe === 'function') {
     it('should detect a win', () => {
       assert.equal(checkForWin(), true);
     });
+    it('should detect if input is out of range', () => {
+      assert.equal(ticTacToe(2,3), "input out of range");
+    });
+    it('should detect if input is not an integer', () =>{
+      assert.equal(ticTacToe(1.5,0), "Please enter an integer");
+    })
   });
 } else {
 
