@@ -48,7 +48,7 @@ function verticalWin() {
 
   //for loop to check each column
   for(let i=0; i<=2; i++){
-
+    
     let col = [];
 
     for(let j=0; j<=2; j++){
@@ -108,21 +108,23 @@ function checkForWin(player) {
 
 //function to print markers
 function ticTacToe(row, column) {
-  let x = Number.isInteger(row);
-  let y = Number.isInteger(column);
+  
+  //possible choies array declaration
   let choices = [0, 1, 2];
 
-
-  if(!x || !y){
+  //if number is not an integer print 'Please enter an integer'
+  if(!Number.isInteger(row) || !Number.isInteger(column)){
     console.log("Please enter an integer");
     return "Please enter an integer";
   }
 
+  //if number is not one of the possible choices print 'input out of range'
   else if(!choices.includes(row) || !choices.includes(column)){
     console.log("input out of range");
     return "input out of range";
   }
 
+  //if input is either 0, 1, or 2 print marker on the board
   else{
     //takes input and prints current marker in correct row and column
     board[row][column] = playerTurn;
