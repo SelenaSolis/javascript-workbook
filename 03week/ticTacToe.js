@@ -79,7 +79,7 @@ function diagonalWin() {
 
 }
 
-//checks if there is a winner
+//checks if there is a winner with player marker as parameter
 function checkForWin(player) {
 
   //calls each check function
@@ -133,7 +133,7 @@ function ticTacToe(row, column) {
   // }
   // board[compRow][compCol] = playerTurn; 
   // checkForWin(playerTurn);
-  
+
 }
 
 function getPrompt() {
