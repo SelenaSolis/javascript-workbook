@@ -6,16 +6,18 @@ const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+//initial setup of board
 let board = [
   [' ', ' ', ' '],
   [' ', ' ', ' '],
   [' ', ' ', ' ']
 ];
 
+//initial player marker variable
 let playerTurn = 'X';
-let win = false;
 
-
+//prints the existing board
 function printBoard() {
   console.log('   0  1  2');
   console.log('0 ' + board[0].join(' | '));
@@ -25,71 +27,113 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
+//checks for horizontal win
 function horizontalWin() {
+
+  //for loop to check each row
   for(let i=0; i<=2; i++){
     let row = board[i];
+
+    //if win in a row returns true
     if(row[0] == row[1] && row[1] == row[2] && row[0] != ' '){
-      win = true;
-      break;
+      return true;
     }
+
   }
+
 }
 
+//checks for vertical win
 function verticalWin() {
+
+  //for loop to check each column
   for(let i=0; i<=2; i++){
+
     let col = [];
+
     for(let j=0; j<=2; j++){
       let x = board[j][i];
       col.push(x);
     }
+
+    //if win in a column returns true
     if(col[0] == col[1] && col[1] == col[2] && col[0] != ' '){
-      win = true;
-      break;
+      return true;
     }
+
   }
+
 }
 
+//checks for diagonal win
 function diagonalWin() {
+
+  //if one diagonal win returns true
   if(board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ' ){
-    win = true;
+    return true;
   }
+  //if other diagonal win returns true
   else if( board[2][0] == board[1][1] && board[1][1] == board[0][2] && board[2][0] != ' '){
-    win = true;
+    return true;
   }
+
 }
 
+//checks if there is a winner
 function checkForWin(player) {
+
+  //calls each check function
   horizontalWin();
   verticalWin();
   diagonalWin();
 
-  if (win == true){
+  //if any check function returns true declares winner
+  if (horizontalWin() === true || verticalWin() === true || diagonalWin() === true){
+
+    //prints winning board
     printBoard();
+
+    //resets board after a win
     console.log(player + "'s win!");
     board = [
       [' ', ' ', ' '],
       [' ', ' ', ' '],
       [' ', ' ', ' ']
     ];
-    win = false;
+    return true;
+
   }  
     
 }
 
+//function to print markers
 function ticTacToe(row, column) {
-  board[row][column] = 'x';
-  checkForWin('x');
 
-  let compRow = Math.floor(Math.random() * 3);
-  let compCol = Math.floor(Math.random() * 3)
-  if (board[compRow][compCol] != ' '){
-    while(board[compRow][compCol] != ' '){
-      compRow = Math.floor(Math.random() * 3)
-      compCol = Math.floor(Math.random() * 3)
-    }
+  //takes input and prints current marker in correct row and column
+  board[row][column] = playerTurn;
+
+  //checks for winner after every turn
+  checkForWin(playerTurn);
+
+  //alternates players
+  if(playerTurn == 'X'){
+    playerTurn = 'O';
   }
-  board[compRow][compCol] = 'o'; 
-  checkForWin('o');
+  else{
+    playerTurn = 'X';
+  }
+  
+  // let compRow = Math.floor(Math.random() * 3);
+  // let compCol = Math.floor(Math.random() * 3)
+  // if (board[compRow][compCol] != ' '){
+  //   while(board[compRow][compCol] != ' '){
+  //     compRow = Math.floor(Math.random() * 3)
+  //     compCol = Math.floor(Math.random() * 3)
+  //   }
+  // }
+  // board[compRow][compCol] = playerTurn; 
+  // checkForWin(playerTurn);
+  
 }
 
 function getPrompt() {
