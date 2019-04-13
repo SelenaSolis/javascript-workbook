@@ -16,19 +16,50 @@ let board = [
 
 //initial player marker variable
 let playerTurn = 'X';
+let turn = 1;
+
+
+function clearBoard(){
+  document.getElementById('message2').innerHTML = " ";
+  board = [
+    [' ', ' ', ' '],
+    [' ', ' ', ' '],
+    [' ', ' ', ' ']
+  ];
+
+  printBoard();
+  playerTurn = 'X';
+  document.getElementById('message1').innerHTML = playerTurn;
+  turn = 0;
+
+}
+
+
 
 
 //prints the existing board
 function printBoard() {
+
+  //counter to print each square 1-9
   let k = 1;
+
+  //loops through each row and column and prints value
   for(let i=0; i<=2; i++){
+
     for (let j=0; j <= 2; j++){
+
+        //variable to get id from HTML doc
         let square = 'sq' + k;
         document.getElementById(square).innerHTML = board[i][j];
+        //adds 1 to square counter
         k = k + 1;
+
       }
+
     }
+
   }
+
 
 //checks for horizontal win
 function horizontalWin() {
@@ -91,37 +122,60 @@ function checkForWin(player) {
   diagonalWin();
 
   //if any check function returns true declares winner
-  if (horizontalWin() === true || verticalWin() === true || diagonalWin() === true){
+  if (horizontalWin() || verticalWin() || diagonalWin()){
 
     //prints winning board
     printBoard();
+    document.getElementById('message2').innerHTML = player + "'s win!";
 
-    //resets board after a win
-    console.log(player + "'s win!");
-    board = [
-      [' ', ' ', ' '],
-      [' ', ' ', ' '],
-      [' ', ' ', ' ']
-    ];
     return true;
 
-  }  
+  }
+  else if(turn == 9){
+      document.getElementById('message2').innerHTML = "It's a tie!";
+    
+  }
     
 }
 
+
 //function to print markers
+//parameters are the row and column of square clicked
 function ticTacToe(row, column) {
 
-  //checks if the user has chosen an occupied square
-  if (board[row][column] =="X" || board[row][column] =="O"){
-    document.getElementById('message2').innerHTML="That square is already used"
-  }
-  else {
+  //checks if the user has chosen an unoccupied square
+  if (board[row][column] === ' '){
+
+    //replaces existing item in array with the player marker
     board[row][column] = playerTurn;
-    console.log(board);
+
     printBoard();
+    document.getElementById('message2').innerHTML = " ";
+    checkForWin(playerTurn);
+    //clears message
+    
+
+    //prints board with updated array
+
+
+    //alternates player
+    if (playerTurn == 'X'){
+      playerTurn = 'O';
+    }
+    else if(playerTurn == 'O'){
+      playerTurn = 'X';
+    }
+
+    //increments global turn counter
+    turn = turn + 1;
+    document.getElementById('message1').innerHTML = playerTurn;
+
   }
-  
+
+  //else user chose occupied square
+  else {
+    document.getElementById('message2').innerHTML="That square is occupied"
+  }
 
 }
 
@@ -194,9 +248,3 @@ if (typeof describe === 'function') {
     });
   });
 }
-// else {
-
-//   getPrompt();
-
-// }
-
