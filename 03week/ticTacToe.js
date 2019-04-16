@@ -1,11 +1,5 @@
 'use strict';
 
-// const assert = require('assert');
-// const readline = require('readline');
-// const rl = readline.createInterface({
-//   input: process.stdin,
-//   output: process.stdout
-// });
 
 //initial setup of board
 let board = [
@@ -16,7 +10,29 @@ let board = [
 
 //initial player marker variable
 let playerTurn = 'X';
+let compTurn = 'O';
+let opp = 'person';
+
+//initial turn counter
 let turn = 1;
+
+window.onload = printBoard();
+
+
+
+function opponent(){
+  opp = document.getElementById('opponent').innerHTML;
+  if (opp == 'person'){
+    opp = 'computer';
+    printBoard();
+  }
+  else {
+    opp = 'person';
+    printBoard();
+  }
+  document.getElementById('opponent').innerHTML = opp;
+}
+
 
 
 function clearBoard(){
@@ -29,8 +45,11 @@ function clearBoard(){
 
   printBoard();
   playerTurn = 'X';
-  document.getElementById('message1').innerHTML = playerTurn;
-  turn = 0;
+  
+  turn = 1;
+  let gameBoard = document.getElementById('container');
+  gameBoard.style.pointerEvents = 'auto';
+  gameBoard.style.backgroundColor = 'white';
 
 }
 
@@ -39,6 +58,12 @@ function clearBoard(){
 
 //prints the existing board
 function printBoard() {
+  if(opp == 'person'){
+    document.getElementById('message1').innerHTML = "It's " + playerTurn + "'s turn";
+  }
+  else if(opp == 'computer'){
+    document.getElementById('message1').innerHTML = "You are X's";
+  }
 
   //counter to print each square 1-9
   let k = 1;
@@ -77,6 +102,7 @@ function horizontalWin() {
 
 }
 
+
 //checks for vertical win
 function verticalWin() {
 
@@ -99,6 +125,7 @@ function verticalWin() {
 
 }
 
+
 //checks for diagonal win
 function diagonalWin() {
 
@@ -113,8 +140,9 @@ function diagonalWin() {
 
 }
 
+
 //checks if there is a winner with player marker as parameter
-function checkForWin(player) {
+function checkForWin() {
 
   //calls each check function
   horizontalWin();
@@ -126,7 +154,10 @@ function checkForWin(player) {
 
     //prints winning board
     printBoard();
-    document.getElementById('message2').innerHTML = player + "'s win!";
+    document.getElementById('message2').innerHTML = playerTurn + "'s win!";
+    let gameBoard = document.getElementById('container');
+    gameBoard.style.pointerEvents = 'none';
+    gameBoard.style.backgroundColor = 'pink';
 
     return true;
 
@@ -137,6 +168,13 @@ function checkForWin(player) {
   }
     
 }
+
+function computerTurn(){
+  let row = Math.floor(Math.random()*2);
+  let col = Math.floor(Math.random()*2);
+  return [row, col];
+}
+
 
 
 //function to print markers
@@ -149,15 +187,6 @@ function ticTacToe(row, column) {
     //replaces existing item in array with the player marker
     board[row][column] = playerTurn;
 
-    printBoard();
-    document.getElementById('message2').innerHTML = " ";
-    checkForWin(playerTurn);
-    //clears message
-    
-
-    //prints board with updated array
-
-
     //alternates player
     if (playerTurn == 'X'){
       playerTurn = 'O';
@@ -166,15 +195,63 @@ function ticTacToe(row, column) {
       playerTurn = 'X';
     }
 
+    printBoard();
+
+    //clears message
+    document.getElementById('message2').innerHTML = " ";
+
+    checkForWin();
+
+    
+    
+    
+    if (opp == 'computer' && turn < 9 && !checkForWin()){
+
+      document.getElementById('message1').innerHTML = "You are X's";
+
+      console.log(playerTurn);
+      let move = computerTurn();
+      row = move[0];
+      column = move[1];
+      
+
+      if (board[row][column] != ' '){
+        while(board[row][column] != ' '){
+          row = Math.floor(Math.random()*3);
+          column = Math.floor(Math.random()*3);
+          console.log('hello');
+        }
+      }
+
+      console.log(playerTurn);
+      board[row][column] = playerTurn;
+      turn = turn + 1;
+      console.log(turn);
+      printBoard();
+      checkForWin();
+
+      //alternates player
+      if (playerTurn == 'X'){
+        playerTurn = 'O';
+      }
+      else if(playerTurn == 'O'){
+        playerTurn = 'X';
+      }
+    }
+
+
+    else if (opp == 'person' && !checkForWin()){
+
+      document.getElementById('message1').innerHTML = "It's " + playerTurn + "'s turn";
+    }
+
     //increments global turn counter
     turn = turn + 1;
-    document.getElementById('message1').innerHTML = playerTurn;
-
   }
 
   //else user chose occupied square
   else {
-    document.getElementById('message2').innerHTML="That square is occupied"
+    document.getElementById('message2').innerHTML="That square is occupied";
   }
 
 }

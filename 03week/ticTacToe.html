@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="./ticTacToe.css">
     </head>
     <body>
-        <h1>It's <span id="message1">X</span>'s turn</h1>
+        <h1 id="message1"></h1>
         <h1 id="message2"></h1>
         <div id="container">
             <div class="square" id="sq1" onclick="ticTacToe(0,0)"></div>
@@ -21,6 +21,7 @@
             <!-- <button type="button" onclick="decideFirst()">Decide who goes first</button> -->
         </div>
         <div>
+            <button type="button" onclick= "opponent()">Opponent: <span id="opponent">person</span></button>
             <!-- <button type="button" onclick="changeMarker()">Change marker</button> -->
             <button type="button" onclick="clearBoard()">Clear Board</button>
         </div>
