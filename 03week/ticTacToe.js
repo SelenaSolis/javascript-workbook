@@ -230,7 +230,9 @@ function checkForWin() {
     return true;
 
   }
+  //if there have been 9 turns it is a tie
   else if(turn == 9){
+
       document.getElementById('message2').innerHTML = "It's a tie!";
     
   }
@@ -249,14 +251,16 @@ function ticTacToe(row, column) {
     //replaces existing item in array with the player marker
     board[row][column] = playerTurn;
 
-    
-
+    //prints user choice
     printBoard();
 
     //clears message
     document.getElementById('message2').innerHTML = " ";
 
+    //checks if there is a winner
     checkForWin();
+
+    //if no winner, alternate player marker
     if (!checkForWin()){
       //alternates player
       if (playerTurn == 'X'){
@@ -268,28 +272,37 @@ function ticTacToe(row, column) {
     }
     
     
-    //if opponent is computer 
+    //if opponent is computer and there have been less than 9 turns with no winner
     if (opp == 'computer' && turn < 9 && !checkForWin()){
 
       document.getElementById('message1').innerHTML = "You are X's";
-
-      horizontalLogic();
+      
+      //if horizontalLogic() returns some value
       if (typeof horizontalLogic() != 'undefined'){
+
+        //declaration of move array returned from function
         let move = horizontalLogic();
         row = move[0];
         column = move[1];
       }
+
+      //if varticalLogic() returns some value
       else if( typeof verticalLogic() != 'undefined'){
+
+        //declaration of move array returned from function
         let move = verticalLogic();
         row = move[0];
         column = move[1];
       }
+
+      //if no strategic move available computer will chose randomly
       else{
+
         //choose random row and column
         row = Math.floor(Math.random()*3);
         column = Math.floor(Math.random()*3);
 
-
+        //if chosen location is occupied computer will chose again until it finds unoccupied space
         if (board[row][column] != ' '){
           while(board[row][column] != ' '){
             row = Math.floor(Math.random()*3);
@@ -298,10 +311,16 @@ function ticTacToe(row, column) {
         }
       }
 
-      
+      //updates board array
       board[row][column] = playerTurn;
+
+      //increments global turn counter
       turn = turn + 1;
+
+      //prints computer choice
       printBoard();
+
+      //checks for computer win
       checkForWin();
 
       //alternates player after computer play
@@ -314,7 +333,7 @@ function ticTacToe(row, column) {
 
     }
 
-    //if opponent is person
+    //if opponent is person and no winner
     else if (opp == 'person' && !checkForWin()){
       document.getElementById('message1').innerHTML = "It's " + playerTurn + "'s turn";
     }
