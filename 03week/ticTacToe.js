@@ -143,6 +143,14 @@ function diagonalWin() {
 }
 
 
+//funtion for computer logic
+function compLogic(){
+  
+
+}
+
+
+
 //checks if there is a winner with player marker as parameter
 function checkForWin() {
 
