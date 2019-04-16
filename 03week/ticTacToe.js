@@ -94,7 +94,8 @@ function horizontalWin() {
   //for loop to check each row
   for(let i=0; i<=2; i++){
     let row = board[i];
-
+    
+    
     //if win in a row returns true
     if(row[0] == row[1] && row[1] == row[2] && row[0] != ' '){
       return true;
@@ -142,10 +143,67 @@ function diagonalWin() {
 
 }
 
+function horizontalLogic(){
+  for(let i=0; i<=2; i++){
 
-//funtion for computer logic
-function compLogic(){
-  
+    let row = [];
+    let spaceCounter = 0;
+    let xCounter = 0;
+    let oCounter = 0;
+    
+    for(let j=0; j<=2; j++){
+      let x = board[i][j];
+      row.push(x);
+    
+      if (x === ' '){
+        spaceCounter = spaceCounter + 1;
+      }
+      else if(x === 'X'){
+        xCounter = xCounter + 1;
+      }
+      else{
+        oCounter = oCounter + 1;
+      }
+      
+    }
+    if (spaceCounter === 1 && (xCounter == 2 || oCounter == 2)){
+      let col = row.indexOf(' ');
+      return [i, col];
+    }
+
+  }
+}
+
+
+function verticalLogic(){
+  for(let i=0; i<=2; i++){
+
+    let col = [];
+    let spaceCounter = 0;
+    let xCounter = 0;
+    let oCounter = 0;
+    
+    for(let j=0; j<=2; j++){
+      let x = board[j][i];
+      col.push(x);
+      if (x === ' '){
+        spaceCounter = spaceCounter + 1;
+      }
+      else if(x === 'X'){
+        xCounter = xCounter + 1;
+      }
+      else{
+        oCounter = oCounter + 1;
+      }
+      
+    }
+    if (spaceCounter === 1 && (xCounter == 2 || oCounter == 2)){
+      let row = col.indexOf(' ');
+      return [row, i]
+
+    }
+
+  }
 
 }
 
@@ -180,16 +238,6 @@ function checkForWin() {
 }
 
 
-//function to randomly choose square for computer play
-function computerTurn(){
-  let row = Math.floor(Math.random()*2);
-  let col = Math.floor(Math.random()*2);
-
-  //returns array of values
-  return [row, col];
-}
-
-
 
 //function to print markers
 //parameters are the row and column of square clicked
@@ -201,13 +249,7 @@ function ticTacToe(row, column) {
     //replaces existing item in array with the player marker
     board[row][column] = playerTurn;
 
-    //alternates player
-    if (playerTurn == 'X'){
-      playerTurn = 'O';
-    }
-    else if(playerTurn == 'O'){
-      playerTurn = 'X';
-    }
+    
 
     printBoard();
 
@@ -215,30 +257,50 @@ function ticTacToe(row, column) {
     document.getElementById('message2').innerHTML = " ";
 
     checkForWin();
+    if (!checkForWin()){
+      //alternates player
+      if (playerTurn == 'X'){
+        playerTurn = 'O';
+      }
+      else if(playerTurn == 'O'){
+        playerTurn = 'X';
+      }
+    }
+    
     
     //if opponent is computer 
     if (opp == 'computer' && turn < 9 && !checkForWin()){
 
       document.getElementById('message1').innerHTML = "You are X's";
 
-      console.log(playerTurn);
-      let move = computerTurn();
-      row = move[0];
-      column = move[1];
-      
+      horizontalLogic();
+      if (typeof horizontalLogic() != 'undefined'){
+        let move = horizontalLogic();
+        row = move[0];
+        column = move[1];
+      }
+      else if( typeof verticalLogic() != 'undefined'){
+        let move = verticalLogic();
+        row = move[0];
+        column = move[1];
+      }
+      else{
+        //choose random row and column
+        row = Math.floor(Math.random()*3);
+        column = Math.floor(Math.random()*3);
 
-      if (board[row][column] != ' '){
-        while(board[row][column] != ' '){
-          row = Math.floor(Math.random()*3);
-          column = Math.floor(Math.random()*3);
-          console.log('hello');
+
+        if (board[row][column] != ' '){
+          while(board[row][column] != ' '){
+            row = Math.floor(Math.random()*3);
+            column = Math.floor(Math.random()*3);
+          }
         }
       }
 
-      console.log(playerTurn);
+      
       board[row][column] = playerTurn;
       turn = turn + 1;
-      console.log(turn);
       printBoard();
       checkForWin();
 
