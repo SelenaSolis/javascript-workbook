@@ -19,9 +19,13 @@ let turn = 1;
 window.onload = printBoard();
 
 
-
+//function to change opponent
 function opponent(){
+
+  //gets current opponent
   opp = document.getElementById('opponent').innerHTML;
+
+  //alternates opponent when button is clicked
   if (opp == 'person'){
     opp = 'computer';
     printBoard();
@@ -30,11 +34,13 @@ function opponent(){
     opp = 'person';
     printBoard();
   }
+
+  //prints opponent on button
   document.getElementById('opponent').innerHTML = opp;
 }
 
 
-
+//function to clear board and variables
 function clearBoard(){
   document.getElementById('message2').innerHTML = " ";
   board = [
@@ -45,15 +51,11 @@ function clearBoard(){
 
   printBoard();
   playerTurn = 'X';
-  
   turn = 1;
   let gameBoard = document.getElementById('container');
   gameBoard.style.pointerEvents = 'auto';
   gameBoard.style.backgroundColor = 'white';
-
 }
-
-
 
 
 //prints the existing board
@@ -169,9 +171,13 @@ function checkForWin() {
     
 }
 
+
+//function to randomly choose square for computer play
 function computerTurn(){
   let row = Math.floor(Math.random()*2);
   let col = Math.floor(Math.random()*2);
+
+  //returns array of values
   return [row, col];
 }
 
@@ -201,10 +207,8 @@ function ticTacToe(row, column) {
     document.getElementById('message2').innerHTML = " ";
 
     checkForWin();
-
     
-    
-    
+    //if opponent is computer 
     if (opp == 'computer' && turn < 9 && !checkForWin()){
 
       document.getElementById('message1').innerHTML = "You are X's";
@@ -230,18 +234,18 @@ function ticTacToe(row, column) {
       printBoard();
       checkForWin();
 
-      //alternates player
+      //alternates player after computer play
       if (playerTurn == 'X'){
         playerTurn = 'O';
       }
       else if(playerTurn == 'O'){
         playerTurn = 'X';
       }
+
     }
 
-
+    //if opponent is person
     else if (opp == 'person' && !checkForWin()){
-
       document.getElementById('message1').innerHTML = "It's " + playerTurn + "'s turn";
     }
 
@@ -255,26 +259,6 @@ function ticTacToe(row, column) {
   }
 
 }
-
-
-  
-
-  
-
-// function getPrompt() {
-
-//   printBoard();
-//   console.log("It's Player " + playerTurn + "'s turn.");
-//   rl.question('row: ', (row) => {
-//     rl.question('column: ', (column) => {
-//       ticTacToe(row, column);
-//       getPrompt();
-//     });
-//   });
-
-// }
-
-
 
 
 // Tests
