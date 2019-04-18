@@ -20,7 +20,7 @@ function printStacks() {
 }
 
 function movePiece() {
-  stacks.a.pop();
+  
 
 }
 
@@ -35,7 +35,9 @@ function checkForWin() {
 }
 
 function towersOfHanoi(startStack, endStack) {
-  // Your code here
+  if (startStack.length == 0){
+    
+  }
 
 }
 
