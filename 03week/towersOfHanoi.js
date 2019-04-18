@@ -20,7 +20,7 @@ function printStacks() {
 }
 
 function movePiece() {
-  // Your code here
+  stacks.a.pop();
 
 }
 
