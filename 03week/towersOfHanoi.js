@@ -19,13 +19,32 @@ function printStacks() {
   console.log("c: " + stacks.c);
 }
 
-function movePiece() {
-  
+function movePiece(startStack, endStack) {
+  let startArr = stacks[startStack];
+  let endArr = stacks[endStack];
+
+  endArr.push(startArr.pop());
 
 }
 
-function isLegal() {
-  // Your code here
+function isLegal(startStack, endStack) {
+  let startArr = stacks[startStack];
+  let endArr = stacks[endStack];
+  console.log(startArr+" this is the arr");
+  console.log(startArr.length+" this is length");
+
+  if (startArr.length === 0){
+    console.log ("choose from a valid stack");
+  }
+  else if(startStack === endStack){
+    return false;
+  }
+  else if (startArr[startArr.length - 1] > endArr[endArr.length - 1]){
+    return false;
+  }
+  else{
+    return true;
+  }
 
 }
 
@@ -35,11 +54,14 @@ function checkForWin() {
 }
 
 function towersOfHanoi(startStack, endStack) {
-  if (startStack.length == 0){
-    
-  }
 
+  if(isLegal(startStack, endStack)){
+    movePiece(startStack,endStack);
+  }
 }
+
+  console.log(stacks);
+
 
 function getPrompt() {
   printStacks();
