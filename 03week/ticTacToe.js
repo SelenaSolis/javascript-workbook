@@ -60,6 +60,8 @@ function clearBoard(){
 
 //prints the existing board
 function printBoard() {
+
+  //prints message depending on opponent
   if(opp == 'person'){
     document.getElementById('message1').innerHTML = "It's " + playerTurn + "'s turn";
   }
@@ -143,6 +145,7 @@ function diagonalWin() {
 
 }
 
+//function to determine if there are any rows where the computer should place the marker
 function horizontalLogic(){
   for(let i=0; i<=2; i++){
 
@@ -155,17 +158,24 @@ function horizontalLogic(){
       let x = board[i][j];
       row.push(x);
     
+      //if a space is found add 1 to spaceCounter
       if (x === ' '){
         spaceCounter = spaceCounter + 1;
       }
+
+      //if an X is found add 1 to the xCounter
       else if(x === 'X'){
         xCounter = xCounter + 1;
       }
+
+      //if an O is found, add 1 to the oCounter
       else{
         oCounter = oCounter + 1;
       }
       
     }
+
+    //if there is one space available in a row with 2 x's or 2 o's in the other spaces, return array
     if (spaceCounter === 1 && (xCounter == 2 || oCounter == 2)){
       let col = row.indexOf(' ');
       return [i, col];
@@ -174,7 +184,7 @@ function horizontalLogic(){
   }
 }
 
-
+//function to determine if there are any columns where the computer should place the marker
 function verticalLogic(){
   for(let i=0; i<=2; i++){
 
@@ -186,17 +196,25 @@ function verticalLogic(){
     for(let j=0; j<=2; j++){
       let x = board[j][i];
       col.push(x);
+
+      //if a space is found add 1 to spaceCounter
       if (x === ' '){
         spaceCounter = spaceCounter + 1;
       }
+
+      //if an X is found add 1 to the xCounter
       else if(x === 'X'){
         xCounter = xCounter + 1;
       }
+
+      //if an O is found, add 1 to the oCounter
       else{
         oCounter = oCounter + 1;
       }
       
     }
+
+    //if there is one space available in a row with 2 x's or 2 o's in the other spaces, return array
     if (spaceCounter === 1 && (xCounter == 2 || oCounter == 2)){
       let row = col.indexOf(' ');
       return [row, i]
@@ -209,7 +227,7 @@ function verticalLogic(){
 
 
 
-//checks if there is a winner with player marker as parameter
+//checks if there is a winner
 function checkForWin() {
 
   //calls each check function
@@ -280,7 +298,7 @@ function ticTacToe(row, column) {
       //if horizontalLogic() returns some value
       if (typeof horizontalLogic() != 'undefined'){
 
-        //declaration of move array returned from function
+        //declaration of move array returned from logic function
         let move = horizontalLogic();
         row = move[0];
         column = move[1];
