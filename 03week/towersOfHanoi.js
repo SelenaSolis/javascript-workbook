@@ -30,16 +30,16 @@ function movePiece(startStack, endStack) {
 function isLegal(startStack, endStack) {
   let startArr = stacks[startStack];
   let endArr = stacks[endStack];
-  console.log(startArr+" this is the arr");
-  console.log(startArr.length+" this is length");
 
   if (startArr.length === 0){
     console.log ("choose from a valid stack");
   }
   else if(startStack === endStack){
+    console.log("Not a valid move");
     return false;
   }
   else if (startArr[startArr.length - 1] > endArr[endArr.length - 1]){
+    console.log("Not a valid move");
     return false;
   }
   else{
@@ -49,7 +49,19 @@ function isLegal(startStack, endStack) {
 }
 
 function checkForWin() {
-  // Your code here
+  let win = "4,3,2,1";
+  let bString = stacks.b.toString();
+  let cString = stacks.c.toString();
+  console.log(bString);
+  if (bString === win){
+    return true;
+  }
+  else if(cString === win){
+    return true;
+  }
+  else{
+    return false;
+  }
 
 }
 
@@ -58,9 +70,8 @@ function towersOfHanoi(startStack, endStack) {
   if(isLegal(startStack, endStack)){
     movePiece(startStack,endStack);
   }
+  checkForWin();
 }
-
-  console.log(stacks);
 
 
 function getPrompt() {
@@ -107,6 +118,8 @@ if (typeof describe === 'function') {
       stacks = { a: [], b: [4, 3, 2, 1], c: [] };
       assert.equal(checkForWin(), true);
       stacks = { a: [1], b: [4, 3, 2], c: [] };
+      assert.equal(checkForWin(), false);
+      stacks = { a: [4,3,2,1], b: [], c:[]};
       assert.equal(checkForWin(), false);
     });
   });
