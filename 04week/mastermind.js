@@ -1,4 +1,5 @@
 'use strict';
+var colors = require('colors');
 
 const assert = require('assert');
 const readline = require('readline');
@@ -28,13 +29,38 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function generateHint() {
-  // your code here
+function generateHint(solution, guess) {
+  let solutionArray = solution.split("");
+  let guessArray = guess.split("");
+  let correctLetterLoc = 0;
+  let correctLetters = 0;
+  for (let i=0; i<4; i++){
+    if (solutionArray[i] === guessArray[i]){
+      correctLetterLoc = correctLetterLoc + 1;
+      solutionArray[i] = null;
+    }
+  }
+  for (let i=0; i<4; i++){
+    let targetIndex = solutionArray.indexOf(guessArray[i])
+    if(targetIndex > -1){
+      correctLetters = correctLetters + 1;
+      solutionArray[targetIndex] = null;
+    }
+  }
+  console.log(correctLetterLoc + " " + correctLetters);
+  return "Correct Location: " + colors.red("%s"), correctLetterLoc + " Correct Letters: " + colors.white("%s"), correctLetters;
 }
+
 
 function mastermind(guess) {
   solution = 'abcd'; // Comment this out to generate a random solution
-  // your code here
+  if(guess === solution){
+    console.log("You guessed it!");
+  }
+  else if(guess != solution){
+    let hint = 
+    
+  }
 }
 
 
