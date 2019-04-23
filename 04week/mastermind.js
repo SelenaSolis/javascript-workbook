@@ -47,8 +47,8 @@ function generateHint(solution, guess) {
       solutionArray[targetIndex] = null;
     }
   }
-  console.log(correctLetterLoc + " " + correctLetters);
-  return "Correct Location: " + colors.red("%s"), correctLetterLoc + " Correct Letters: " + colors.white("%s"), correctLetters;
+  return correctLetterLoc + "-" + correctLetters;
+  return 
 }
 
 
@@ -56,10 +56,11 @@ function mastermind(guess) {
   solution = 'abcd'; // Comment this out to generate a random solution
   if(guess === solution){
     console.log("You guessed it!");
+    return "You guessed it!";
   }
   else if(guess != solution){
-    let hint = 
-    
+    let hint = generateHint(solution, guess);
+    board.push(guess, hint);
   }
 }
 
@@ -79,7 +80,7 @@ if (typeof describe === 'function') {
   describe('#mastermind()', () => {
     it('should register a guess and generate hints', () => {
       mastermind('aabb');
-      assert.equal(board.length, 1);
+      assert.equal(board.length, 2);
     });
     it('should be able to detect a win', () => {
       assert.equal(mastermind(solution), 'You guessed it!');
@@ -88,10 +89,11 @@ if (typeof describe === 'function') {
 
   describe('#generateHint()', () => {
     it('should generate hints', () => {
-      assert.equal(generateHint('abdc'), '2-2');
+      assert.equal(generateHint('abcd', 'abdc' ), '2-2');
+
     });
     it('should generate hints if solution has duplicates', () => {
-      assert.equal(generateHint('aabb'), '1-1');
+      assert.equal(generateHint('abcd', 'aedf'), '1-1');
     });
 
   });
