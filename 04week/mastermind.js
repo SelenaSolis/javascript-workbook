@@ -12,11 +12,13 @@ let board = [];
 let solution = '';
 let letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
+//prints board
 function printBoard() {
   for (let i = 0; i < board.length; i++) {
     console.log(board[i]);
   }
 }
+
 
 function generateSolution() {
   for (let i = 0; i < 4; i++) {
@@ -53,7 +55,8 @@ function generateHint(solution, guess) {
 
 
 function mastermind(guess) {
-  solution = 'abcd'; // Comment this out to generate a random solution
+
+  // solution = 'abcd'; // Comment this out to generate a random solution
   if(guess === solution){
     console.log("You guessed it!");
     return "You guessed it!";
