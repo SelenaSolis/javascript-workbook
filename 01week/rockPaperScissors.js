@@ -9,12 +9,13 @@ const rl = readline.createInterface({
 
 
 function rockPaperScissors(hand1, hand2) {
+
   hand1 = hand1.trim();
   hand2 = hand2.trim();
   hand1 = hand1.toLowerCase();
   hand2 = hand2.toLowerCase();
 
-  if (hand1 == hand2){
+  if (hand1 === hand2){
     if (!hand1 || !hand2){
       return "please enter a choice.";
     }
@@ -36,12 +37,9 @@ function rockPaperScissors(hand1, hand2) {
       hand2 == "scissors" && hand1 == "paper"){
         return "Hand two wins!";
   }
-
   else{
-    return "it's a tie!";
+    return "invalid entry";
   }
-
-
 
 }
 
@@ -66,13 +64,20 @@ if (typeof describe === 'function') {
     it('should detect which hand won', () => {
       assert.equal(rockPaperScissors('rock', 'paper'), "Hand two wins!");
       assert.equal(rockPaperScissors('paper', 'scissors'), "Hand two wins!");
+      assert.equal(rockPaperScissors('scissors', 'rock'), "Hand two wins!");
       assert.equal(rockPaperScissors('rock', 'scissors'), "Hand one wins!");
+      assert.equal(rockPaperScissors('paper', 'rock'), "Hand one wins!");
+      assert.equal(rockPaperScissors('scissors', 'paper'), "Hand one wins!");
     });
     it('should scrub input to ensure lowercase with "trim"ed whitepace', () => {
       assert.equal(rockPaperScissors('rOcK', ' paper '), "Hand two wins!");
       assert.equal(rockPaperScissors('Paper', 'SCISSORS'), "Hand two wins!");
       assert.equal(rockPaperScissors('rock ', 'sCiSsOrs'), "Hand one wins!");
     });
+    it('should return invalid for invalid entry', () => {
+      assert.equal(rockPaperScissors('rock', 'poop'), "invalid entry");
+      assert.equal(rockPaperScissors('poop', 'rock'), "invalid entry");
+    })
   });
 } else {
 
