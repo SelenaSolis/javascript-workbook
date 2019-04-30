@@ -10,31 +10,31 @@ do{
 while(x<=1000);
 
 //object declarations
-var person1 = {
+const person1 = {
   firstName: "Jane",
   lastName: "Doe",
   birthDate: "Jan 5, 1925",
   gender: "female",
 };
-var person2 = {
+const person2 = {
   firstName: "John",
   lastName: "Doe",
   birthDate: "Feb 16, 1930",
   gender: "male",
 };
-var person3 = {
+const person3 = {
   firstName: "Joe",
   lastName: "Doe",
   birthDate: "Nov 11, 1947",
   gender: "male",
 };
-var person4 = {
+const person4 = {
   firstName: "Jack",
   lastName: "Doe",
   birthDate: "Feb 11, 1992",
   gender: "male",
 };
-var person5 = {
+const person5 = {
   firstName: "Jill",
   lastName: "Doe",
   birthDate: "May 2, 1975",
@@ -94,6 +94,3 @@ const filteredAge = arrayOfPersons.filter(function(person){
 //logs array of persons born before 1990     
 console.log("BORN BEFORE 1990:");                                     
 console.log(filteredAge);
-
-
-
