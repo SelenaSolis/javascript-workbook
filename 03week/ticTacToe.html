@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./ticTacToe.css">
+    </head>
+    <body>
+        <h1 id="message1"></h1>
+        <h1 id="message2"></h1>
+        <div id="container">
+            <div class="square" id="sq1" onclick="ticTacToe(0,0)"></div>
+            <div class="square" id="sq2" onclick="ticTacToe(0,1)"></div>
+            <div class="square" id="sq3" onclick="ticTacToe(0,2)"></div>
+            <div class="square" id="sq4" onclick="ticTacToe(1,0)"></div>
+            <div class="square" id="sq5" onclick="ticTacToe(1,1)"></div>
+            <div class="square" id="sq6" onclick="ticTacToe(1,2)"></div>
+            <div class="square" id="sq7" onclick="ticTacToe(2,0)"></div>
+            <div class="square" id="sq8" onclick="ticTacToe(2,1)"></div>
+            <div class="square" id="sq9" onclick="ticTacToe(2,2)"></div>
+        </div>
+        <div class="buttonDec">
+            <!-- <button type="button" onclick="decideFirst()">Decide who goes first</button> -->
+        </div>
+        <div>
+            <button type="button" onclick= "opponent()">Opponent: <span id="opponent">person</span></button>
+            <!-- <button type="button" onclick="changeMarker()">Change marker</button> -->
+            <button type="button" onclick="clearBoard()">Clear Board</button>
+        </div>
+        
+
+        <script src="./ticTacToe.js"></script>
+    </body>
+</html>
