@@ -8,13 +8,23 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
-  // Your code here
+class Checker {
+  constructor(color){
+    if(color === 'white'){
+      this.symbol = '○';
+    }
+    else{
+      this.symbol = '●';
+    }
+    
+  }
+
 }
 
 class Board {
   constructor() {
-    this.grid = []
+    this.grid = [];
+    this.checkers = [];
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -27,6 +37,56 @@ class Board {
       }
     }
   }
+
+  //function lays out both player's checkers
+  layoutCheckers() {
+    this.layoutPlayer1();
+    this.layoutPlayer2();
+    console.log(this.checkers);
+    console.log(this.checkers[0]);
+  }
+
+  layoutPlayer1() {
+    // Layout the rows and column for the starting board for player 1
+    for(let i = 5; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (i % 2 === 0) {
+          if (j % 2 !== 0) {
+            this.grid[i][j] = new Checker('black');
+            this.checkers.push(this.grid[i][j]);
+
+          }
+        }
+        else {
+          if (j % 2 === 0) {
+            this.grid[i][j] = new Checker('black');
+            this.checkers.push(this.grid[i][j]);
+          }
+        }
+      }
+    }
+  }
+
+  layoutPlayer2() {
+    // Layout the rows and column for the starting board for player 2
+    for(let i = 0; i < 3; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (i % 2 === 0) {
+          if (j % 2 !== 0) {
+            this.grid[i][j] = new Checker('white');
+            this.checkers.push(this.grid[i][j]);
+          }
+        }
+        else {
+          if (j % 2 === 0) {
+            this.grid[i][j] = new Checker('white');
+            this.checkers.push(this.grid[i][j]);
+          }
+        }
+      }
+    }
+  }
+
   viewGrid() {
     // add our column numbers
     let string = "  0 1 2 3 4 5 6 7\n";
@@ -51,16 +111,90 @@ class Board {
     }
     console.log(string);
   }
-
-  // Your code here
 }
 
 class Game {
   constructor() {
-    this.board = new Board;
+    this.board = new Board();
   }
   start() {
     this.board.createGrid();
+    this.board.layoutCheckers();
+  }
+
+  killChecker(position){
+    let positionRow = position[0];
+    let positionCol = position[1];
+    let symbol = this.board.grid[positionRow][positionCol].symbol;
+    console.log("symbol: " + symbol);
+    for (let x in this.board.checkers){
+      console.log(this.board.checkers[x].symbol);
+      
+      if (this.board.checkers[x].symbol === symbol){
+        let index = x;
+        this.board.checkers.splice(index, 1);
+        break;
+      }
+    }
+    this.board.grid[positionRow][positionCol] = null;
+  }
+
+  moveChecker(start, end) {
+    let [startRow, startColumn] = start.split('');
+    let [endRow, endColumn] = end.split('');
+    startRow = parseInt(startRow);
+    startColumn = parseInt(startColumn);
+    
+
+    endRow = parseInt(endRow);
+    endColumn = parseInt(endColumn);
+    let startCell = this.board.grid[startRow][startColumn];
+    let endCell = this.board.grid[parseInt(endRow)][parseInt(endColumn)];
+
+    if (!endCell){
+      if(endRow === startRow-1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
+        if(this.board.grid[startRow][startColumn].symbol === '●'){
+          this.board.grid[endRow][endColumn] = {symbol: '●'};
+          this.board.grid[startRow][startColumn] = null;
+          
+        }
+      }
+      else if(endRow === startRow+1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
+        if(this.board.grid[startRow][startColumn].symbol === '○'){
+          this.board.grid[endRow][endColumn] = {symbol: '○'};
+          this.board.grid[startRow][startColumn] = null;
+        }
+      }
+      else if(Math.abs(startRow - endRow) == 2){
+        let killRow = (startRow + endRow)/2;
+        let killCol = (startColumn + endColumn)/2;
+        let killPosition = [killRow,killCol];
+        this.board.grid[endRow][endColumn] = this.board.grid[startRow][startColumn];
+        this.killChecker(killPosition);
+        
+      }
+      else{
+        console.log("invalid move");
+      }
+
+
+
+      // if(this.board.grid[startRow][startColumn].symbol === '●'){
+      //   if(endRow === startRow-1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
+      //     this.board.grid[endRow][endColumn] = {symbol: '●'};
+      //     this.board.grid[startRow][startColumn] = null;
+      //   }
+      // }
+      // else if(this.board.grid[startRow][startColumn].symbol === '○'){
+      //     if(endRow === startRow + 1 && (endColumn === startColumn + 1 || endColumn === startColumn - 1)){
+      //       this.board.grid[endRow][endColumn] = {symbol: '○'};
+      //       this.board.grid[startRow][startColumn] = null;
+      //     }
+      // }
+      // else{
+      //   console.log("invalid move");
+      // }
+    }
   }
 }
 
