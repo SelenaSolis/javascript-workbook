@@ -38,14 +38,13 @@ class Board {
     }
   }
 
-  //function lays out both player's checkers
+  //method lays out both player's checkers
   layoutCheckers() {
     this.layoutPlayer1();
     this.layoutPlayer2();
-    console.log(this.checkers);
-    console.log(this.checkers[0]);
   }
 
+  //method lays out player one's checkers
   layoutPlayer1() {
     // Layout the rows and column for the starting board for player 1
     for(let i = 5; i < 8; i++) {
@@ -67,6 +66,7 @@ class Board {
     }
   }
 
+  //method lays out player one's checkers
   layoutPlayer2() {
     // Layout the rows and column for the starting board for player 2
     for(let i = 0; i < 3; i++) {
@@ -117,83 +117,94 @@ class Game {
   constructor() {
     this.board = new Board();
   }
+
+  //method for start of new game
   start() {
     this.board.createGrid();
     this.board.layoutCheckers();
   }
 
+  //method deletes checkers from grid and checkers array with 
+  //[row, col] as parameter
   killChecker(position){
+    //assigns row and column of checker to var
     let positionRow = position[0];
     let positionCol = position[1];
+
+    //assigns symbol of "killed" checker to var
     let symbol = this.board.grid[positionRow][positionCol].symbol;
-    console.log("symbol: " + symbol);
+
+    //loops through array
     for (let x in this.board.checkers){
-      console.log(this.board.checkers[x].symbol);
-      
+      //if checker in checker array has same symbol as "killed" checker
       if (this.board.checkers[x].symbol === symbol){
+        //assigns index of located checker
         let index = x;
+        //deletes checker at index
         this.board.checkers.splice(index, 1);
         break;
       }
+      else{
+        break;
+      }
     }
+    //sets value on grid as null
     this.board.grid[positionRow][positionCol] = null;
   }
 
+  //method to move checker on board
   moveChecker(start, end) {
+
+    //assigns variables for row and col of start and end locations on grid
     let [startRow, startColumn] = start.split('');
     let [endRow, endColumn] = end.split('');
+    //converts string inputs to integer
     startRow = parseInt(startRow);
     startColumn = parseInt(startColumn);
-    
-
     endRow = parseInt(endRow);
     endColumn = parseInt(endColumn);
-    let startCell = this.board.grid[startRow][startColumn];
+    //assigns value of ending checker location on grid to variable
     let endCell = this.board.grid[parseInt(endRow)][parseInt(endColumn)];
 
+    //if the ending cell is empty
     if (!endCell){
+      //if move is 1 row and 1 column away
       if(endRow === startRow-1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
         if(this.board.grid[startRow][startColumn].symbol === '●'){
+          //reassign ending location to new symbol
           this.board.grid[endRow][endColumn] = {symbol: '●'};
+          //reassign starting location to null
           this.board.grid[startRow][startColumn] = null;
           
         }
       }
+      //if move is 1 row and 1 column away
       else if(endRow === startRow+1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
         if(this.board.grid[startRow][startColumn].symbol === '○'){
+          //reassign ending location to new symbol
           this.board.grid[endRow][endColumn] = {symbol: '○'};
+          //reassign starting location to null
           this.board.grid[startRow][startColumn] = null;
         }
       }
+      //if move is 2 rows away
       else if(Math.abs(startRow - endRow) == 2){
+        //row in the middle
         let killRow = (startRow + endRow)/2;
+        //column in the middle
         let killCol = (startColumn + endColumn)/2;
+        //position of checker to kill
         let killPosition = [killRow,killCol];
+        //value of the end location on grid is set to old value
         this.board.grid[endRow][endColumn] = this.board.grid[startRow][startColumn];
+        //killChecker method
         this.killChecker(killPosition);
         
       }
       else{
+        //logged for invalid moves
         console.log("invalid move");
       }
-
-
-
-      // if(this.board.grid[startRow][startColumn].symbol === '●'){
-      //   if(endRow === startRow-1 && (endColumn === startColumn+1 || endColumn === startColumn-1)){
-      //     this.board.grid[endRow][endColumn] = {symbol: '●'};
-      //     this.board.grid[startRow][startColumn] = null;
-      //   }
-      // }
-      // else if(this.board.grid[startRow][startColumn].symbol === '○'){
-      //     if(endRow === startRow + 1 && (endColumn === startColumn + 1 || endColumn === startColumn - 1)){
-      //       this.board.grid[endRow][endColumn] = {symbol: '○'};
-      //       this.board.grid[startRow][startColumn] = null;
-      //     }
-      // }
-      // else{
-      //   console.log("invalid move");
-      // }
     }
   }
 }
