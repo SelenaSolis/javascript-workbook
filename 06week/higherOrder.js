@@ -11,21 +11,23 @@ function map(array, callback){
   return newArr; 
 }
 
-function reduce(arr, callback, accumulator) {
-  accumulator = accumulator || 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (typeof arr[i] == 'number') {
-      accumulator = accumulator + arr[i];
-    } 
-    else if (typeof arr == 'object') {
-      for (let index in arr[i]) {
-      accumulator = accumulator + arr[i][index];
-      }
+const checkObject = [{price: 10},{price: 20},{price: 30}];
+const checkArray = [10, 20, 30];
+function reduce(array, accumulator) {
+    accumulator = accumulator || 0;
+    for (let index = 0; index < array.length; index++) {
+        if(typeof array[index] == 'number') {
+            accumulator = accumulator + array[index];
+        } else if(typeof array[index] == 'object') {
+            for(let i in array[index]){
+                accumulator = accumulator + array[index][i];
+            }
+        }   
     }
-    callback(accumulator, arr[i], i, arr);
-  }
-  return accumulator;
+    return accumulator;
 }
+const sum = reduce(checkArray, 10); // Set accumulator to 10
+console.log("ANSWER: ",sum);
 
 function filter(array, callback, thisObject) {
   var filteredArray = [];
@@ -58,9 +60,7 @@ if (typeof describe === 'function') {
 
   describe('#reduce()', () => {
     it('should return array elements added together', () => {
-      const reduced = reduce([1, 2, 3], (acc, num) => {
-        return acc + num;
-      });
+      const reduced = reduce([1, 2, 3], 0);
       assert.deepEqual(reduced, 6);
     });
   });
