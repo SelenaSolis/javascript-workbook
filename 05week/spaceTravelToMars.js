@@ -15,11 +15,11 @@ class CrewMember {
     this.job = job;
     this.specialSkill = specialSkill;
     this.ship = ship;
-    this.enterShip = function(shipName){
-      this.ship = shipName;
-      shipName.crew.push(this);
-    };
   }
+  enterShip(shipName){
+    this.ship = shipName;
+    shipName.crew.push(this);
+  };
 }
 
 class Ship {
